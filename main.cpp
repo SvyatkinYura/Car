@@ -1,42 +1,80 @@
 #include "TXLib.h"
-
+//Добавіть параметров к фону
+//Добавіть персонажей (человечков, которых собьет машіна ілі бутылок, в которых топліво ілі лужі ілі трампліны)
 void car(int x, int y, int kapot, int kuzov, int koleso, int kabina);
 void drawMountain();
+void drawRoad();
+void pervayaMashinaEdet();
+void vtorayaMashinaEdet();
 
 int main()
 {
     txCreateWindow(1300, 600);
 
-    for(int i = 0; i < 1100; i++)
-    {
+    pervayaMashinaEdet();
+    //vtorayaMashinaEdet();
 
-        txSetFillColour(RGB(28,172,227));
-        txSetColour(TX_BLACK, 1);
-        txRectangle(0, 0, 1000, 250);
-
-
-        txClear();
-        car(20+i,500, 0, 0, 0, 0);
-        //car(20+i,500, 50, 70, 20, 40);
-        txSleep(100);
-        i = i + 10;
-    }
     return 0;
 }
 
-void car(int x, int y, int kapot, int kuzov, int koleso, int kabina)
+void pervayaMashinaEdet()
 {
+    int vx = 15;
+    int vy = 15;
+    int x = 20;
+    int y = 310;
+    for (int i = 0; i < 340; i++)
+    {
+        txSetFillColour(RGB(28,172,227));
+        txClear();
+        if (x < 20)
+        {
+            vx = -vx;
+        }
+        if (x > 900)
+        {
+            vx = -vx;
+        }
+        if (y < 150)
+        {
+            vy = -vy;
+        }
+        if (y > 560)
+        {
+            vy = -vy;
+        }
 
-    // дорога
-    txSetFillColour(RGB(128,128,128));
-    txSetColour(TX_BLACK, 1);
-    txRectangle(0, 250, 1500, 600);
+        x = x + vx;
+        y = y + vy;
 
-    // разделительная полоса
-    txSetColour(TX_WHITE, 3);
-    txLine     ( 0, 400, 1500,400);
-    txSetColour(TX_WHITE, 3);
-    txLine     ( 0, 410, 1500,410);
+        car(x, y, 0, 0, 0, 0);
+        /*drawMountain();
+        drawRoad();
+
+        car(20 + 15*i, 500, 0, 0, 0, 0);
+*/
+        txSleep(10);
+    }
+}
+
+void vtorayaMashinaEdet()
+{
+   for (int i = 0; i < 140; i++)
+    {
+        txSetFillColour(RGB(28,172,227));
+        txClear();
+
+        drawMountain();
+        drawRoad();
+
+        car(1400 - 15*i, 310, 0, 0, 0, 0);
+
+        txSleep(10);
+    }
+}
+
+void car (int x, int y, int kapot, int kuzov, int koleso, int kabina)
+{
 
     // все квадраты
     txSetFillColour(TX_RED);
@@ -69,8 +107,11 @@ void car(int x, int y, int kapot, int kuzov, int koleso, int kabina)
     txSetColour(TX_ORANGE, 2);
     txSetFillColour(TX_YELLOW);
     txEllipse(   x+380,     y-20,      x+390,          y);
+}
 
-    // горы
+
+void drawMountain()
+{
     txSetColour(TX_BLUE, 5);
     txLine(10, 250, 110, 90);
     txLine(110, 90, 150, 250);
@@ -89,5 +130,19 @@ void car(int x, int y, int kapot, int kuzov, int koleso, int kabina)
 
     // солнце
     txSetColour(TX_ORANGE, 2);
+    txSetFillColour(TX_YELLOW);
     txCircle(680, 50, 35);
 }
+
+void drawRoad()
+{
+    txSetFillColour(RGB(128,128,128));
+    txSetColour(TX_BLACK, 1);
+    txRectangle(0, 250, 1500, 600);
+
+    txSetColour(TX_WHITE, 3);
+    txLine     ( 0, 400, 1500,400);
+    txSetColour(TX_WHITE, 3);
+    txLine     ( 0, 410, 1500,410);
+}
+
