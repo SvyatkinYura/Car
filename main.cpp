@@ -4,6 +4,7 @@
 void car(int x, int y, int kapot, int kuzov, int koleso, int kabina);
 void drawMountain();
 void drawRoad();
+void people();
 void pervayaMashinaEdet();
 void vtorayaMashinaEdet();
 
@@ -13,6 +14,8 @@ int main()
 
     pervayaMashinaEdet();
     //vtorayaMashinaEdet();
+
+
 
     return 0;
 }
@@ -138,11 +141,41 @@ void drawRoad()
 {
     txSetFillColour(RGB(128,128,128));
     txSetColour(TX_BLACK, 1);
-    txRectangle(0, 250, 1500, 600);
+    txRectangle(0, 250, 1300, 600);
 
     txSetColour(TX_WHITE, 3);
-    txLine     ( 0, 400, 1500,400);
+    txLine     ( 0, 400, 1300,400);
     txSetColour(TX_WHITE, 3);
-    txLine     ( 0, 410, 1500,410);
+    txLine     ( 0, 410, 1300,410);
+
+    txSetFillColour(RGB(240, 227, 66));
+    txRectangle(0, 250, 1300, 600);
 }
+
+void people()
+{
+    txSetColour(TX_BLACK, 2);
+    txSetFillColour(TX_BLUE);
+    txLine(550, 320, 550, 370);
+    txLine(550, 330, 520, 350);
+    txLine(550, 330, 580, 350);
+    txLine(550, 370, 530, 400);
+    txLine(550, 370, 520, 400);
+    txLine(660, 380, 660, 430);
+    txLine(660, 390, 640, 420);
+    txLine(660, 390, 680, 460);
+    txLine(660, 480, 640, 460);
+    txLine(660, 480, 680, 460);
+    txLine(740, 280, 740, 330);
+    txLine(740, 290, 720, 320);
+    txLine(740, 290, 760, 320);
+    txLine(740, 330, 720, 360);
+    txLine(740, 330, 760, 360);
+
+    txCircle(550, 310, 2);
+    txCircle(660, 370, 2);
+    txCircle(740, 270, 2);
+}
+
+
 
