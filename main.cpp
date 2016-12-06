@@ -2,12 +2,12 @@
 //Добавіть параметров к фону
 //Добавіть персонажей (человечков, которых собьет машіна ілі бутылок, в которых топліво ілі лужі ілі трампліны)
 void car(int x, int y, int kapot, int kuzov, int koleso, int kabina);
+void people();
 void drawMountain();
 void drawRoad();
-void people();
 void pervayaMashinaEdet();
 void vtorayaMashinaEdet();
-
+void checkWindowLimits(int *x, int *y);
 int main()
 {
     txCreateWindow(1300, 600);
@@ -22,33 +22,41 @@ int main()
 
 void pervayaMashinaEdet()
 {
-    int vx = 15;
-    int vy = 15;
-    int x = 20;
-    int y = 310;
+    HDC fon = txLoadImage ("road.bmp");
+    int x = 500;
+    int y = 500;
+    int speedX = 20;
+    int speedY = 20;
     for (int i = 0; i < 340; i++)
     {
-        txSetFillColour(RGB(28,172,227));
-        txClear();
-        if (x < 20)
+
+        txBitBlt (txDC(), 0, 0, 1300, 600, fon, 0, 0);
+
+        // НИТРО
+        if(GetAsyncKeyState(VK_SPACE))
         {
-            vx = -vx;
-        }
-        if (x > 900)
-        {
-            vx = -vx;
-        }
-        if (y < 150)
-        {
-            vy = -vy;
-        }
-        if (y > 560)
-        {
-            vy = -vy;
+           x = x + speedX * 5;
         }
 
-        x = x + vx;
-        y = y + vy;
+        //КНОПКИ
+        if(GetAsyncKeyState(VK_LEFT)) {
+           x = x - speedX;
+        }
+        if(GetAsyncKeyState(VK_RIGHT)) {
+           x = x + speedX;
+        }
+        if(GetAsyncKeyState(VK_DOWN)) {
+           y = y + speedY;
+        }
+        if(GetAsyncKeyState(VK_UP)) {
+           y = y - speedY;
+        }
+
+
+        checkWindowLimits (&x, &y);
+
+
+
 
         car(x, y, 0, 0, 0, 0);
         /*drawMountain();
@@ -57,7 +65,9 @@ void pervayaMashinaEdet()
         car(20 + 15*i, 500, 0, 0, 0, 0);
 */
         txSleep(10);
-    }
+}
+
+    txDeleteDC (fon);
 }
 
 void vtorayaMashinaEdet()
@@ -75,6 +85,27 @@ void vtorayaMashinaEdet()
         txSleep(10);
     }
 }
+
+void checkWindowLimits(int *x, int *y)
+{
+    if (*x < 0)
+    {
+        *x = 0;
+    }
+    if (*x > txGetExtentX() - 390)
+    {
+        *x = txGetExtentX() - 390;
+    }
+    if (*y < 150)
+    {
+         *y = 150;
+    }
+    if (*y > txGetExtentY() - 40)
+    {
+        *y = txGetExtentY() - 40;
+    }
+}
+
 
 void car (int x, int y, int kapot, int kuzov, int koleso, int kabina)
 {
@@ -148,8 +179,8 @@ void drawRoad()
     txSetColour(TX_WHITE, 3);
     txLine     ( 0, 410, 1300,410);
 
-    txSetFillColour(RGB(240, 227, 66));
-    txRectangle(0, 250, 1300, 600);
+    /*txSetFillColour(RGB(240, 227, 66));
+    txRectangle(0, 250, 1300, 600);*/
 }
 
 void people()
@@ -176,6 +207,3 @@ void people()
     txCircle(660, 370, 2);
     txCircle(740, 270, 2);
 }
-
-
-
