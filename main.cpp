@@ -1,6 +1,5 @@
 #include "TXLib.h"
-//Добавіть параметров к фону
-//Добавіть персонажей (человечков, которых собьет машіна ілі бутылок, в которых топліво ілі лужі ілі трампліны)
+
 void car(int x, int y, int kapot, int kuzov, int koleso, int kabina);
 void people();
 void drawMountain();
@@ -11,25 +10,13 @@ void checkWindowLimits(int *x, int *y);
 int main()
 {
     txCreateWindow(1300, 600);
-
-    pervayaMashinaEdet();
-    //vtorayaMashinaEdet();
-
-
-
-    return 0;
-}
-
-void pervayaMashinaEdet()
-{
     HDC fon = txLoadImage ("road.bmp");
     int x = 500;
     int y = 500;
     int speedX = 20;
     int speedY = 20;
-    for (int i = 0; i < 340; i++)
+    while(1)
     {
-
         txBitBlt (txDC(), 0, 0, 1300, 600, fon, 0, 0);
 
         // НИТРО
@@ -52,23 +39,18 @@ void pervayaMashinaEdet()
            y = y - speedY;
         }
 
-
         checkWindowLimits (&x, &y);
-
-
-
-
         car(x, y, 0, 0, 0, 0);
-        /*drawMountain();
-        drawRoad();
-
-        car(20 + 15*i, 500, 0, 0, 0, 0);
-*/
         txSleep(10);
 }
 
     txDeleteDC (fon);
+
+    return 0;
 }
+
+
+
 
 void vtorayaMashinaEdet()
 {
